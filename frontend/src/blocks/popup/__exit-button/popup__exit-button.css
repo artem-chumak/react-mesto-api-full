@@ -1,0 +1,34 @@
+.popup__exit-button {
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  top: -44px;
+  right: -44px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  background-image: url(../../../images/Exit-button-L.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.popup__exit-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 558px) {
+  .popup__exit-button {
+    top: -63px;
+    right: -6px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup__exit-button {
+    height: 37px;
+    width: 37px;
+    top: -50px;
+    right: -8;
+    background-image: url(../../../images/Exit-button-S.svg);
+  }
+}

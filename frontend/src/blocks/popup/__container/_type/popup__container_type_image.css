@@ -1,0 +1,6 @@
+.popup__container_type_image {
+  background: transparent;
+  min-width: 240px;
+  font-size: 0;
+  padding: 0;
+}

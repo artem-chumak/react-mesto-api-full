@@ -1,0 +1,6 @@
+.popup__container {
+  position: relative;
+  margin: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

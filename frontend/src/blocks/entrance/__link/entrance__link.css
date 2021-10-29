@@ -1,0 +1,8 @@
+.entrance__link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.entrance__link:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,31 @@
+.entrance__input {
+  border: none;
+  padding-bottom: 13px;
+  border-bottom: 2px solid #E5E5E5;
+  background: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.entrance__input:focus {
+  outline: none;
+}
+
+.entrance__input:last-of-type {
+  margin-bottom: 216px;
+}
+
+.entrance__input::placeholder {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+@media screen and (max-width: 425px) {
+  .entrance__input:last-of-type {
+    margin-bottom: 173px;
+  }
+}

@@ -1,0 +1,26 @@
+.profile {
+  padding: 41px 0 51px 0;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 41px 0 36px 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile {
+    padding: 41px 19px 36px 19px;
+  }
+}

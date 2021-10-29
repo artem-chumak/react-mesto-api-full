@@ -1,0 +1,12 @@
+.entrance {
+  max-width: 358px;
+  margin: 0 auto;
+  padding-top: 60px;
+  color: #fff;
+}
+
+@media screen and (max-width: 425px) {
+  .entrance {
+    max-width: 260px;
+  }
+}
