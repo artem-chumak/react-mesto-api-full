@@ -1,5 +1,4 @@
 {
-  "homepage": "http://artem-chumak.github.io/react-mesto-auth/",
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
@@ -19,6 +18,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "building": "npm run build && scp -r ./build/* artem@178.154.194.169:/home/artem/mesto/front",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

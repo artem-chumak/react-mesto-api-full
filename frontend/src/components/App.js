@@ -1,11 +1,12 @@
 //* Some similar components were built in different ways for practice.
 // todo - Плавное появление меню
-///// todo - Добавить спинер на загрузку main
 // todo - Валидация форм
 // todo - Страница 404.
 // todo - Make comp Entrance.js and use in Login.js and Rigister.js
 // todo - change Ref into controled comps (AddPlace and other)
-// todo - liked icons have not onHover state
+
+// todo - Поменять адреса
+// todo - Настроить куки
 
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
