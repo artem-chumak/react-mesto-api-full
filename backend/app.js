@@ -1,9 +1,14 @@
+// todo Валидаторы сслок для моделей Карточки и Юзера
+// todo Дописать обработчик ошибок из урока Макса
+// todo Узнать и установить аддекватный лимит запросов
+
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
@@ -14,7 +19,24 @@ const { creatUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000 } = process.env;
+
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://artchumak.nomoredomains.rocks',
+    'https://artchumak.nomoredomains.rocks',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Accept'],
+  credentials: true,
+};
+
 const app = express();
+
+app.use('*', cors(corsOptions));
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5000,
