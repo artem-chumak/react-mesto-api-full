@@ -65,7 +65,7 @@ class Api {
   }
 
   setLike(data) {
-    return fetch(`${this._baseUrl}cards/likes/${data}`, {
+    return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: 'PUT',
       headers: this._headers,
     })
@@ -73,7 +73,7 @@ class Api {
   }
 
   setDislike(data) {
-    return fetch(`${this._baseUrl}cards/likes/${data}`, {
+    return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     })
@@ -81,7 +81,7 @@ class Api {
   }
 
   changeLikeCardStatus(data, isLiked) {
-    return fetch(`${this._baseUrl}cards/likes/${data}`, {
+    return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: `${isLiked ? 'DELETE' : 'PUT'}`,
       headers: this._headers,
     })

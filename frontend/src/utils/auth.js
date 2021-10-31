@@ -1,4 +1,4 @@
-const URL = 'https://auth.nomoreparties.co';
+const URL = 'http://api.artchumak.nomoredomains.rocks'; // https:
 
 const handleResponse = (res) => {
   if (res.ok) {

@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
-const cors = require('cors');
+// const cors = require('cors'); можно попробовать через cors
 const cookieParser = require('cookie-parser');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
@@ -20,22 +20,30 @@ const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000 } = process.env;
 
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://artchumak.nomoredomains.rocks',
-    'https://artchumak.nomoredomains.rocks',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Accept'],
-  credentials: true,
-};
+const allowedCors = [
+  'http://artchumak.nomoredomains.rocks',
+  'https://artchumak.nomoredomains.rocks',
+  'localhost:3000',
+];
 
 const app = express();
 
-app.use('*', cors(corsOptions));
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+  const { method } = req;
+  if (method === 'OPTIONS') {
+    const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+    const requestHeaders = req.headers['access-control-request-headers'];
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  return next();
+});
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,

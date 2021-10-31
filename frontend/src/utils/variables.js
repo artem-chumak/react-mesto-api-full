@@ -1,4 +1,4 @@
 export const apiInfo = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-26/',
+  url: 'http://api.artchumak.nomoredomains.rocks/', // https:
   token: 'b0e0b94f-d543-4f9f-b125-9b741686cafd'
 }

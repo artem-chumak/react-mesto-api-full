@@ -8,6 +8,8 @@
 // todo - Поменять адреса
 // todo - Настроить куки
 
+// todo - Можно поменять пути с # обратно, чтобы не было херни в путях
+
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
