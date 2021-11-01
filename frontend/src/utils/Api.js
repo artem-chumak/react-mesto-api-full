@@ -15,6 +15,7 @@ class Api {
 
   getCards() {
     return fetch(`${this._baseUrl}cards`, {
+      credentials: 'include',
       headers: this._headers
     })
       .then(this._handleResponse);
@@ -22,6 +23,7 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {
+      credentials: 'include',
       headers: this._headers
     })
       .then(this._handleResponse);
@@ -34,6 +36,7 @@ class Api {
   setCard(data) {
     return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -46,6 +49,7 @@ class Api {
   setUserInfo(data) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -58,6 +62,7 @@ class Api {
   setAvatar(data) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify(data)
     })
@@ -67,6 +72,7 @@ class Api {
   setLike(data) {
     return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: 'PUT',
+      credentials: 'include',
       headers: this._headers,
     })
       .then(this._handleResponse);
@@ -75,6 +81,7 @@ class Api {
   setDislike(data) {
     return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     })
       .then(this._handleResponse);
@@ -83,6 +90,7 @@ class Api {
   changeLikeCardStatus(data, isLiked) {
     return fetch(`${this._baseUrl}cards/${data}/likes`, {
       method: `${isLiked ? 'DELETE' : 'PUT'}`,
+      credentials: 'include',
       headers: this._headers,
     })
       .then(this._handleResponse);
@@ -92,6 +100,7 @@ class Api {
     return fetch(`${this._baseUrl}cards/${data}`, {
       method: 'DELETE',
       headers: this._headers,
+      credentials: 'include',
     })
       .then(this._handleResponse);
 
@@ -101,7 +110,7 @@ class Api {
 export const api = new Api ({
   baseUrl: apiInfo.url,
   headers: {
-    authorization: apiInfo.token,
+    // authorization: apiInfo.token,
     'Content-Type': 'application/json'
   }
 })

@@ -83,6 +83,7 @@ const login = async (req, res, next) => {
       { expiresIn: '7d' },
     );
     return res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true }).json({ message: 'Авторизация прошла успешно' });
+    //! Можно тут отправить ID пользователя или почту или что-то, что можно записать во фронте
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new UnauthorizedUserError('Некорректный логин или пароль'));

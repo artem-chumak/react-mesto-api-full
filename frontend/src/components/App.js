@@ -5,10 +5,15 @@
 // todo - Make comp Entrance.js and use in Login.js and Rigister.js
 // todo - change Ref into controled comps (AddPlace and other)
 
-// todo - Поменять адреса
-// todo - Настроить куки
+// todo - Поеменять потом адрес запроса на hhtps
 
-// todo - Можно поменять пути с # обратно, чтобы не было херни в путях
+// todo - Переделать логику на работу с куками, а не ЛокалСторедж
+
+
+// todo - Косяк с порядком карточек
+// todo - Не обнавляются данные пользователя
+// todo - Проблема с лайками и удалением карт
+// todo - При выходе куки не удаляются и я могу спокойно обновить страницу и как и не выходил.
 
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
@@ -75,12 +80,14 @@ function App() {
         const [cards, userInfo] = res;
         setCards(cards);
         setCurrentUser(userInfo);
+        setUserData({ email: userInfo.email });
+        setLoggedIn(true);
       })
       .catch((err) => console.log(err))
       .finally(() => {
         setIsLoader(false);
       });
-  }, []);
+  }, [loggedIn]); //! Пока нашёл такое решение. Не нравится, что происходит зпрос сервера даже на странице с Логином
 
   // CLOSE popup by Esc
   useEffect(() => {
@@ -94,9 +101,9 @@ function App() {
   }, []);
 
   // CHECK token
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+  // useEffect(() => {
+  //   tokenCheck();
+  // }, []);
 
   // START page
   const history = useHistory();
@@ -227,8 +234,8 @@ function App() {
     auth
       .authorize(email, password)
       .then((res) => {
-        if (res.token) {
-          localStorage.setItem("token", res.token);
+        if (res.message) {
+          // localStorage.setItem("token", res.token);
           setUserData({ email: email });
           setLoggedIn(true);
           setIsMenuOpen(false);
@@ -264,25 +271,26 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUserData({ email: "" });
+    // localStorage.removeItem("token");
+    // ! Нужно удалять куку!!!
+    setUserData({ email: "" }); //! Нужно всю дату почистить!!!
     setLoggedIn(false);
   };
 
-  const tokenCheck = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      auth
-        .getContent(token)
-        .then((res) => {
-          if (res) {
-            setUserData({ email: res.data.email });
-            setLoggedIn(true);
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  };
+  // const tokenCheck = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     auth
+  //       .getContent(token)
+  //       .then((res) => {
+  //         if (res) {
+  //           setUserData({ email: res.data.email });
+  //           setLoggedIn(true);
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
