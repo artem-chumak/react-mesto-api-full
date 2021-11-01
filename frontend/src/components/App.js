@@ -7,13 +7,9 @@
 
 // todo - Поеменять потом адрес запроса на hhtps
 
-// todo - Переделать логику на работу с куками, а не ЛокалСторедж
-
-
 // todo - Косяк с порядком карточек
-// todo - Не обнавляются данные пользователя
-// todo - Проблема с лайками и удалением карт
 // todo - При выходе куки не удаляются и я могу спокойно обновить страницу и как и не выходил.
+// todo - Выпилить setUserData т.к. это можно брать из currentUser
 
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
@@ -116,7 +112,8 @@ function App() {
 
   // CARD
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    console.log(card.likes);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
@@ -234,7 +231,7 @@ function App() {
     auth
       .authorize(email, password)
       .then((res) => {
-        if (res.message) {
+        if (res.message) { //решил не мудрить
           // localStorage.setItem("token", res.token);
           setUserData({ email: email });
           setLoggedIn(true);
