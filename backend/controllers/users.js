@@ -83,12 +83,17 @@ const login = async (req, res, next) => {
       { expiresIn: '7d' },
     );
     return res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true }).json({ message: 'Авторизация прошла успешно' });
-    //! Можно тут отправить ID пользователя или почту или что-то, что можно записать во фронте
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new UnauthorizedUserError('Некорректный логин или пароль'));
     } return next(error);
   }
+};
+
+const logout = async (req, res, next) => {
+  try {
+    res.cookie('jwt', 'logout', { maxAge: 1, httpOnly: true, sameSite: true }).json({ message: 'Вы вышли из приложения' });
+  } catch (error) { next(error); }
 };
 
 const updateUser = async (req, res, next) => {
@@ -131,6 +136,7 @@ module.exports = {
   getUserById,
   creatUser,
   login,
+  logout,
   updateUser,
   updateAvatar,
 };

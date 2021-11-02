@@ -4,12 +4,14 @@
 // todo - Страница 404.
 // todo - Make comp Entrance.js and use in Login.js and Rigister.js
 // todo - change Ref into controled comps (AddPlace and other)
+// todo - повесить где-то await чтобы страница не дергалась на Логин.
 
 // todo - Поеменять потом адрес запроса на hhtps
 
-// todo - Косяк с порядком карточек
 // todo - При выходе куки не удаляются и я могу спокойно обновить страницу и как и не выходил.
 // todo - Выпилить setUserData т.к. это можно брать из currentUser
+// todo - Добавить тестовый запрос на сервер для проверки куки и возврат с 200, а не 401 как сейчас
+// todo - Сделать ограничение на отправку 30 карточек, как на учебном сервере было
 
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
@@ -74,7 +76,7 @@ function App() {
       .getAllneededData()
       .then((res) => {
         const [cards, userInfo] = res;
-        setCards(cards);
+        setCards(cards.reverse());
         setCurrentUser(userInfo);
         setUserData({ email: userInfo.email });
         setLoggedIn(true);
@@ -83,7 +85,7 @@ function App() {
       .finally(() => {
         setIsLoader(false);
       });
-  }, [loggedIn]); //! Пока нашёл такое решение. Не нравится, что происходит зпрос сервера даже на странице с Логином
+  }, [loggedIn]);
 
   // CLOSE popup by Esc
   useEffect(() => {
@@ -112,7 +114,6 @@ function App() {
 
   // CARD
   const handleCardLike = (card) => {
-    console.log(card.likes);
     const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
@@ -268,10 +269,16 @@ function App() {
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("token");
     // ! Нужно удалять куку!!!
-    setUserData({ email: "" }); //! Нужно всю дату почистить!!!
-    setLoggedIn(false);
+    auth
+    .logout()
+    .then(() => {
+      setUserData({ email: "" }); //! Нужно всю дату почистить!!!
+      setLoggedIn(false);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   };
 
   // const tokenCheck = () => {

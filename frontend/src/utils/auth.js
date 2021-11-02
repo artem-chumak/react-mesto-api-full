@@ -33,15 +33,26 @@ export const authorize = (email, password) => {
     .then(handleResponse)
 };
 
-export const getContent = (token) => {
-  return fetch(`${URL}/users/me`, {
-    method: 'GET',
+// export const getContent = (token) => {
+//   return fetch(`${URL}/users/me`, {
+//     method: 'GET',
+//     credentials: 'include',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`,
+//     }
+//   })
+//     .then(handleResponse)
+// }
+
+export const logout = () => {
+  return fetch(`${URL}/logout`, {
     credentials: 'include',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     }
   })
-    .then(handleResponse)
-}
+  .then(handleResponse)
+};
