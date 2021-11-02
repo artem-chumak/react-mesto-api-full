@@ -11,6 +11,7 @@
 // todo - При выходе куки не удаляются и я могу спокойно обновить страницу и как и не выходил.
 // todo - Выпилить setUserData т.к. это можно брать из currentUser
 // todo - Добавить тестовый запрос на сервер для проверки куки и возврат с 200, а не 401 как сейчас
+// todo   который будет Сетить статус, и этот статус в условную конструкцию юзЭффекта
 // todo - Сделать ограничение на отправку 30 карточек, как на учебном сервере было
 
 import { useState, useEffect } from "react";
@@ -233,7 +234,6 @@ function App() {
       .authorize(email, password)
       .then((res) => {
         if (res.message) { //решил не мудрить
-          // localStorage.setItem("token", res.token);
           setUserData({ email: email });
           setLoggedIn(true);
           setIsMenuOpen(false);
@@ -269,7 +269,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    // ! Нужно удалять куку!!!
     auth
     .logout()
     .then(() => {
