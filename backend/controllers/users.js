@@ -92,9 +92,11 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    res.cookie('jwt', 'logout', { maxAge: 1, httpOnly: true, sameSite: true }).json({ message: 'Вы вышли из приложения' });
+    res.cookie('jwt', 'logout', { maxAge: 1, httpOnly: true }).json({ message: 'Вы вышли из приложения' });
   } catch (error) { next(error); }
 };
+
+// sameSite: true удаляю эту хрень, может поможет
 
 const updateUser = async (req, res, next) => {
   try {
