@@ -82,7 +82,9 @@ const login = async (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       { expiresIn: '7d' },
     );
-    return res.cookie('jwt', token, { maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: true }).json({ message: 'Авторизация прошла успешно' });
+    return res.cookie('jwt', token, {
+      maxAge: 3600000 * 24 * 7, httpOnly: true, sameSite: 'None', secure: true,
+    }).json({ message: 'Авторизация прошла успешно' });
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new UnauthorizedUserError('Некорректный логин или пароль'));
@@ -92,7 +94,9 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    res.cookie('jwt', 'logout', { maxAge: 1, httpOnly: true }).json({ message: 'Вы вышли из приложения' });
+    res.cookie('jwt', 'logout', {
+      maxAge: 1, httpOnly: true, sameSite: 'None', sucure: true,
+    }).json({ message: 'Вы вышли из приложения' });
   } catch (error) { next(error); }
 };
 
