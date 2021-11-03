@@ -1,4 +1,4 @@
-const URL = 'https://api.artchumak.nomoredomains.rocks'; // https:
+const URL = '//api.artchumak.nomoredomains.rocks';
 
 const handleResponse = (res) => {
   if (res.ok) {

@@ -31,6 +31,8 @@ const allowedCors = [
 
 const app = express();
 
+app.use(requestLogger);
+
 app.use((req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
@@ -60,7 +62,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
