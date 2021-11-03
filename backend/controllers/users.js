@@ -100,8 +100,6 @@ const logout = async (req, res, next) => {
   } catch (error) { next(error); }
 };
 
-// sameSite: true удаляю эту хрень, может поможет
-
 const updateUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndUpdate(
