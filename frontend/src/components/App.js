@@ -12,7 +12,8 @@
 // todo - Сделать ограничение на отправку 30 карточек, как на учебном сервере было
 // todo - Разобраться с кукой для http, может сделать тернарник по адресу запроса http/https
 
-// todo -  Почистить код от комментариев
+// todo - Почистить код от комментариев
+// todo - Добавить всплывающее сообрещие о неверном пороле
 
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
@@ -270,14 +271,14 @@ function App() {
 
   const handleLogout = () => {
     auth
-    .logout()
-    .then(() => {
-      setUserData({ email: "" }); //! Нужно всю дату почистить!!!
-      setLoggedIn(false);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .logout()
+      .then(() => {
+        setUserData({ email: "" }); //! Нужно всю дату почистить!!!
+        setLoggedIn(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   // const tokenCheck = () => {
@@ -309,20 +310,20 @@ function App() {
         <Switch>
 
           : <ProtectedRoute
-          exact
-          path="/"
-          isLoader={isLoader}
-          loggedIn={loggedIn}
-          handleEditProfileClick={onEditProfile}
-          handleAddPlaceClick={onAddPlace}
-          handleEditAvatarClick={onEditAvatar}
-          handleCardClick={handleCardClick}
-          handleCardDeleteClick={handleCardDeleteClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          component={Main}
-        />
-         
+            exact
+            path="/"
+            isLoader={isLoader}
+            loggedIn={loggedIn}
+            handleEditProfileClick={onEditProfile}
+            handleAddPlaceClick={onAddPlace}
+            handleEditAvatarClick={onEditAvatar}
+            handleCardClick={handleCardClick}
+            handleCardDeleteClick={handleCardDeleteClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            component={Main}
+          />
+
           <Route path="/sign-in">
             <Login handleLogin={handleLogin} />
           </Route>
